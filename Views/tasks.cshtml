@@ -1,0 +1,17 @@
+<h3>All Tasks</h3>
+@if (Model["tasks"].Length == 0)
+{
+  <p>There are no tasks to display.</p>
+}
+else
+{
+  <ul>
+  @foreach(var task in Model["tasks"])
+  {
+    <li>
+    <p>Category: @Model["categories"][@task.GetCategoryId()]</p>
+    <p>Task Description: @task.GetDescription()</p>
+    </li>
+  }
+  </ul>
+}

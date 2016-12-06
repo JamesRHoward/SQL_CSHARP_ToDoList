@@ -105,6 +105,7 @@ namespace ToDoList
       while(rdr.Read())
       {
         this._id = rdr.GetInt32(0);
+        Console.WriteLine(this._id);
       }
       if (rdr != null)
       {

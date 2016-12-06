@@ -122,5 +122,32 @@ namespace ToDoList
       cmd.ExecuteNonQuery();
       conn.Close();
     }
+    public static List<Category> GetAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM categories;", conn);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Category> categories = new List<Category>{};
+      while(rdr.Read())
+      {
+        int categoryId = rdr.GetInt32(0);
+        string categoryName = rdr.GetString(1);
+        Category newCategory = new Category(categoryName, categoryId);
+        categories.Add(newCategory);
+      }
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+      return categories;
+    }
   }
 }

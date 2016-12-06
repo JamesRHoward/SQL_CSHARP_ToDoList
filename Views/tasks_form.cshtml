@@ -1,0 +1,8 @@
+<h3>New Task</h3>
+
+<form action="/categories" method="post">
+  <input type="text" name="task-description" value="" class="form-control" placeholder="Desciption" required>
+  <input type="hidden" name="category-id" value="@Model.GetId()">
+  <br>
+  <button class="btn btn-default btn-md" type="submit">Create Task</button>
+</form>
