@@ -73,5 +73,18 @@ namespace ToDoList
       //Assert
       Assert.Equal(testTask, foundTask);
     }
+    [Fact]
+    public void Test_DeleteDeletesTask()
+    {
+      //Arrange
+      Task testTask = new Task("Mow the lawn", 1);
+      testTask.Save();
+      testTask.Delete();
+
+      List<Task> expectedList = new List<Task> {};
+      List<Task> result = Task.GetAll();
+
+      Assert.Equal(expectedList, result);
+    }
   }
 }

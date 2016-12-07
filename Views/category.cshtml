@@ -1,0 +1,29 @@
+@{
+  Layout="Shared/_Layout.cshtml";
+}
+
+<h3>@Model.GetName()</h3>
+<br>
+@{
+  var categoryTasks = Model.GetTasks();
+}
+@if (categoryTasks.Count == 0)
+{
+  <p>There are no tasks in this category</p>
+}
+else
+{
+  <ul>
+  @foreach (var task in categoryTasks)
+  {
+    <li>@task.GetDescription() <span class="btn btn-default btn-xs"><a href="/categories/@Model.GetId()/tasks/@task.GetId()/delete">Delete</a></span></li>
+  }
+  </ul>
+  <br>
+}
+<br>
+<form action="/tasks/new" method="get">
+  <input type="hidden" name="category-id" value="@Model.GetId()">
+  <button class="btn btn-default btn-md" type="submit">Add Task</button>
+</form>
+<br>

@@ -1,17 +1,26 @@
-<h3>All Tasks</h3>
-@if (Model["tasks"].Length == 0)
-{
-  <p>There are no tasks to display.</p>
+@{
+  Layout="Shared/_Layout.cshtml";
 }
-else
+
+<h3>All Tasks</h3>
+<br>
+@foreach(var category in Model)
 {
-  <ul>
-  @foreach(var task in Model["tasks"])
-  {
-    <li>
-    <p>Category: @Model["categories"][@task.GetCategoryId()]</p>
-    <p>Task Description: @task.GetDescription()</p>
-    </li>
+  @{
+    var categoryTasks = Model.GetAll();
   }
-  </ul>
+ <h4>@category.GetName()</h4>
+ @if (categoryTasks.Count == 0)
+ {
+   <p>There are no tasks in this category</p>
+ }
+ else
+ {
+   <ul>
+   @foreach (var task in categoryTasks)
+   {
+     <li>@task.GetDescription()</li>
+   }
+   </ul>
+ }
 }

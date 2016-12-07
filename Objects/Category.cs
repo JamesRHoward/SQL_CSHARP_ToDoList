@@ -149,5 +149,42 @@ namespace ToDoList
       }
       return categories;
     }
+    public static Category Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM categories WHERE id = @CategoryId;", conn);
+
+      SqlParameter categoryIdParameter = new SqlParameter();
+      categoryIdParameter.ParameterName = "@CategoryId";
+      categoryIdParameter.Value = id;
+      cmd.Parameters.Add(categoryIdParameter);
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundCategoryId = 0;
+      string foundCategoryName = null;
+
+      while(rdr.Read())
+      {
+        foundCategoryId = rdr.GetInt32(0);
+        foundCategoryName = rdr.GetString(1);
+      }
+      Category foundCategory = new Category(foundCategoryName, foundCategoryId);
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+      return foundCategory;
+    }
+    public override int GetHashCode()
+    {
+         return this.GetName().GetHashCode();
+    }
   }
 }
